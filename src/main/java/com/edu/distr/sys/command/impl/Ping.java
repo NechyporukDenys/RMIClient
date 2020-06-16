@@ -1,10 +1,10 @@
 package com.edu.distr.sys.command.impl;
 
-import com.edu.distr.sys.command.abstraction.ITask;
+import com.edu.distr.sys.command.abstraction.ICommand;
 
 import java.io.Serializable;
 
-public class PingTask implements ITask<Integer>, Serializable {
+public class Ping implements ICommand<Integer>, Serializable {
   @Override
   public Integer execute() {
     return 0;

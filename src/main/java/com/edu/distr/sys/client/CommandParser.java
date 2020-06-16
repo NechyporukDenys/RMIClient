@@ -1,6 +1,6 @@
 package com.edu.distr.sys.client;
 
-import com.edu.distr.sys.client.utilities.EnumManager;
+import com.edu.distr.sys.client.utils.EnumManager;
 import com.edu.distr.sys.command.impl.NumberType;
 
 import java.io.IOException;
@@ -14,7 +14,8 @@ public class CommandParser {
     ECHO,
     GENERATE,
     PROCESS,
-    HELP;
+    HELP,
+    EXIT;
   }
 
   private static class Patterns {
@@ -124,30 +125,25 @@ public class CommandParser {
   public String help(Command command) {
     switch (command) {
       case PING:
-        return "\n----------> PING <---------- \n" +
-                "Sends an empty message to the server to test the connection.\n" +
-                "Note: no other symbols are allowed after the command.";
+        return "\n1) PING \n" +
+                "Write: ping";
       case ECHO:
-        return "\n----------> ECHO <---------- \n" +
-                "Sends selected text to the server and returns it back.\n" +
-                "Example: echo 'Hello world!'";
+        return "\n2) ECHO \n" +
+                "Write: echo 'some text' \n" +
+                "Scopes are not allowed";
       case GENERATE:
-        return "\n----------> GENERATE <---------- \n" +
-                "Sends request to server to generate numbers (whole or decimal) and saves the generated numbers to file.\n" +
-                "Template: generate \"path/to/file\" <amount of numbers to generate> <type: decimal or whole> <min> <max>\n" +
-                "Example: generate \"to_sort.txt\" 100 whole 0 1000\n" +
-                "(This will generate 100 whole numbers from 0 to 1000 and put them into file named 'to_sort.txt')\n" +
-                "Note: quotes (\") around file path are mandatory.";
+        return "\n3) GENERATE \n" +
+                "Write: generate \"file_root\" <amount> <type> <min> <max>\n" +
+                "You can use either whole and decimal numbers";
       case PROCESS:
-        return "\n----------> PROCESS <---------- \n" +
-                "Reads the file, sends its content to server. Server sorts the numbers and sends the result, which is written to output file.\n" +
-                "Template: process \"path/to/input/file\" value\n" +
-                "Example: process \"to_sort.txt\" 10";
-
+        return "\n4) PROCESS  \n" +
+                "Write: process \"file_root\" <value>";
       case HELP:
-        return "\n----------> HELP <----------\n" +
-                "Print out helpful message on how to use the program.\n" +
-                "Use 'help <command>' to get info about specific command";
+        return "\n5) HELP \n" +
+                "Write: help <command>";
+      case EXIT:
+        return "\n6) EXIT \n" +
+                "Write: exit";
       default:
         return "";
     }

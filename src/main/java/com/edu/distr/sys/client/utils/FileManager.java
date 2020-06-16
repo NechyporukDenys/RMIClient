@@ -1,4 +1,4 @@
-package com.edu.distr.sys.client.utilities;
+package com.edu.distr.sys.client.utils;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

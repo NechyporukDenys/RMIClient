@@ -1,13 +1,13 @@
 package com.edu.distr.sys.command.impl;
 
-import com.edu.distr.sys.command.abstraction.ITask;
+import com.edu.distr.sys.command.abstraction.ICommand;
 
 import java.io.Serializable;
 
-public class EchoTask implements ITask<String>, Serializable {
+public class Echo implements ICommand<String>, Serializable {
   private String text;
 
-  public EchoTask(String text) {
+  public Echo(String text) {
     this.text = text;
   }
 

@@ -1,4 +1,4 @@
-package com.edu.distr.sys.client.utilities;
+package com.edu.distr.sys.client.utils;
 
 public class EnumManager {
   public static <E extends Enum<E>>  boolean contains(Class<E> enumClass, String test) {

@@ -1,24 +1,24 @@
 package com.edu.distr.sys.command.impl;
 
-import com.edu.distr.sys.command.abstraction.ITask;
+import com.edu.distr.sys.command.abstraction.ICommand;
 
 import java.io.Serializable;
-import java.nio.ByteBuffer;
 import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-public class SortTask implements ITask<byte[]>, Serializable {
-  byte[] byteArray;
-  long value;
-  String inputFiles;
+public class Search implements ICommand<byte[]>, Serializable {
+  private byte[] byteArray;
+  private long value;
+  private String inputFiles;
 
-  public SortTask(byte[] byteArray, long value, String inputFiles) {
+  public Search(byte[] byteArray, long value, String inputFiles) {
     this.byteArray = byteArray;
     this.value = value;
     this.inputFiles = inputFiles;
   }
-  private double[] test(double[] arr, long value) {
+
+  private double[] getModernArray(double[] arr, long value) {
     double temporary;
     double[] array = arr;
     for (int i = 0; i < array.length; i++) {
@@ -32,21 +32,8 @@ public class SortTask implements ITask<byte[]>, Serializable {
         }
 
       }
-  }
+    }
     return array;
-  }
-  private byte[] convertDoubleToByteArray(double number) {
-    ByteBuffer byteBuffer = ByteBuffer.allocate(Double.BYTES);
-    byteBuffer.putDouble(number);
-    return byteBuffer.array();
-  }
-
-  private byte[] convertDoubleArrayToByteArray(double[] data) {
-    if (data == null) return null;
-    byte[] byts = new byte[data.length * Double.BYTES];
-    for (int i = 0; i < data.length; i++)
-      System.arraycopy(convertDoubleToByteArray(data[i]), 0, byts, i * Double.BYTES, Double.BYTES);
-    return byts;
   }
 
   private int countCopies(double[] array, long value) {
@@ -57,7 +44,7 @@ public class SortTask implements ITask<byte[]>, Serializable {
     return count;
   }
 
-  public double[] sort(double[] array, long value) {
+  public double[] searchByValue(double[] array, long value) {
     double temporary;
     int countCopies;
     int count = 0;
@@ -79,7 +66,6 @@ public class SortTask implements ITask<byte[]>, Serializable {
 
       }
     }
-    byteArray = convertDoubleArrayToByteArray(array);
     return arrayIndex;
   }
 
@@ -92,7 +78,7 @@ public class SortTask implements ITask<byte[]>, Serializable {
     String[] strArray = content.replace(System.lineSeparator(), delimiter).split(delimiter);
     double[] numberArray = Arrays.stream(strArray).mapToDouble(Double::parseDouble).toArray();
 
-    double[] result = this.sort(numberArray, value);
+    double[] result = this.searchByValue(numberArray, value);
 
     DecimalFormat decimalFormat = new DecimalFormat("#.#####");
     String strResult = Arrays.stream(result).mapToObj(decimalFormat::format).collect(Collectors.joining(delimiter));
@@ -107,8 +93,7 @@ public class SortTask implements ITask<byte[]>, Serializable {
     String[] strArray = content.replace(System.lineSeparator(), delimiter).split(delimiter);
     double[] numberArray = Arrays.stream(strArray).mapToDouble(Double::parseDouble).toArray();
 
-    double[] result = this.test(numberArray, value);
-    System.out.println(Arrays.toString(result));
+    double[] result = this.getModernArray(numberArray, value);
 
     DecimalFormat decimalFormat = new DecimalFormat("#.#####");
     String strResult = Arrays.stream(result).mapToObj(decimalFormat::format).collect(Collectors.joining(delimiter));

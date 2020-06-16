@@ -1,6 +1,6 @@
 package com.edu.distr.sys.command.abstraction;
 
-public interface ITask<T> {
+public interface ICommand<T> {
   T execute();
   byte[] getArray();
 }
